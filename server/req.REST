@@ -1,0 +1,23 @@
+POST http://127.0.0.1:8089/api/item
+Content-Type:  application/json
+
+{
+    "item" : "This is the second todo item"
+}
+
+###
+GET  http://127.0.0.1:8089/api/items
+Content-Type:  application/json
+
+###
+PUT  http://127.0.0.1:8089/api/item/64991e144477a6a39609e4c9
+Content-Type:  application/json
+
+ {
+    "item": "This is the fisrt item have updated"
+ }
+
+###
+DELETE   http://127.0.0.1:8089/api/item/64991e144477a6a39609e4c9
+Content-Type:  application/json
+

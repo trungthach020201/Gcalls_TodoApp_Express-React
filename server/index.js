@@ -10,11 +10,15 @@ app.use(express.json());
 //use cors
 app.use(cors());
 
-//port
+// add port and connect to server
 const PORT = process.env.PORT || 8089;
+app.listen(PORT, () => console.log(`listening on port ${PORT}, Server Connected`)) 
 
-//let's import router
+//import router
+const authRoute = require("./routes/auth")
 const TodoItemRoute = require("./routes/todoItems");
+const userRoute = require('./routes/user');
+
 
 //connect to mongodb
 mongoose
@@ -23,5 +27,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/", TodoItemRoute);
-// add port and connect to server
-app.listen(PORT, () => console.log("Server connected"));
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute)
+
+

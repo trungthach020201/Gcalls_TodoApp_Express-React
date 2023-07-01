@@ -2,15 +2,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
+    background-color:#008080 !important;
     width: 500px;
     margin: 50px auto;
     border-radius:8px;
-    padding:16px;
+    padding:50px;
   }
   
   .App h1 {
     text-align: center;
+    color: #fff;
+  }
+  .start_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+    margin: 50px;
+    border-radius:8px;
+    padding:16px;
   }
   
   .form {
@@ -23,7 +34,7 @@
   
   .form input[type="text"]{
     padding: 10px;
-    width: 85%;
+    width: 75%;
     border: 1px solid #eee;
     border-radius: 6px;
   }
@@ -35,6 +46,7 @@
     border-radius: 6px;
     padding: 10px;
     cursor: pointer;
+    width: 19%;
   }
   
   .form input[type="text"]:focus,

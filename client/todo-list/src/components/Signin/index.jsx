@@ -5,6 +5,8 @@ import {useState} from 'react';
 import axios  from 'axios';
 
 
+
+
 const Signup = () => {
     const [data, setData] = useState({
         email: "",
@@ -22,7 +24,7 @@ const Signup = () => {
             const url = "http://localhost:8089/api/auth"
             const {data:res} = await axios.post(url,data);
             localStorage.setItem("token",res.data);
-            window.location="/"
+                        window.location="/"
         } catch (error) {
             if(error.response && 
                 error.response.status >= 400 &&
@@ -58,7 +60,7 @@ const Signup = () => {
                         </form>
                 </div>
                 <div className={styles.right}>
-                <h1>New Here</h1>
+                <h1>Register Here</h1>
                     <Link to="/signup">
                         <button type="submit" className={styles.btn_white}>SignUp</button>
                     </Link>

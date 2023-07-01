@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 
 .signup_form_container{
@@ -22,9 +23,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color:aquamarine;
+    background-color:#008080;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    padding: 16px;
 }
 
 .left h1 {
@@ -92,7 +94,7 @@
 }
 
 .btn_green {
-    background-color: #3bb19b;
+    background-color: #b1723b;
     color: white;
     margin: 10px;
 }

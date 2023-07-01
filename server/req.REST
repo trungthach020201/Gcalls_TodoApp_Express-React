@@ -1,4 +1,4 @@
-POST http://127.0.0.1:8089/api/item
+POST http://127.0.0.1:8089/api/item/649c49c568a4892d7ca4ea7f
 Content-Type:  application/json
 
 {
@@ -8,6 +8,11 @@ Content-Type:  application/json
 ###
 GET  http://127.0.0.1:8089/api/items
 Content-Type:  application/json
+
+###
+GET  http://127.0.0.1:8089/api/items/649c4bcfd56ba15b1fe8aaa7
+Content-Type:  application/json
+
 
 ###
 PUT  http://127.0.0.1:8089/api/item/64991e144477a6a39609e4c9
@@ -29,3 +34,7 @@ Content-Type:  application/json
     "email" : "ht01646@gmail.com",
     "password": "Hao2022Trung@"
 }
+
+###
+DELETE   http://127.0.0.1:8089/api/delall
+Content-Type:  application/json

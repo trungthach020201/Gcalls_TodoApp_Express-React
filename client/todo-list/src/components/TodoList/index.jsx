@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import styles from './styles.module.css'
 
+
+
 function TodoList() {
   const [itemText, setItemText] = useState("");
   const [listItems, setListItems] = useState([]);
@@ -13,7 +15,17 @@ function TodoList() {
   const addItem = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8089/api/item", { item: itemText});
+      const token = localStorage.getItem("token")
+      // Extract the payload from the token
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const decodedPayload = atob(base64);
+      // Parse the payload as JSON to access the user information
+      const user = JSON.parse(decodedPayload);
+      // Extract user information from the decoded payload
+      const id = user._id;
+
+      const res = await axios.post(`http://localhost:8089/api/item/${id}`, { item: itemText});
       setItemText((prev) => [...prev, res.data]);
       setItemText("");
     } catch (error) {
@@ -25,8 +37,17 @@ function TodoList() {
   useEffect(() => {
     const getItemList = async () => {
       try {
+        const token = localStorage.getItem("token")
+        // Extract the payload from the token
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const decodedPayload = atob(base64);
+        // Parse the payload as JSON to access the user information
+        const user = JSON.parse(decodedPayload);
+        // Extract user information from the decoded payload
+        const id = user._id;
         document.title = 'TodoApp';
-        const res = await axios.get("http://localhost:8089/api/items");
+        const res = await axios.get(`http://localhost:8089/api/items/${id}`);
         setListItems(res.data);
       } catch (error) {
         console.log(error);
@@ -74,24 +95,26 @@ function TodoList() {
   return (
     <div className={styles.App}>
       <h1>Create Your Todo Here</h1>
-      <form className={styles.form} onSubmit={e => addItem(e)}>
-        <input type="text" placeholder="Add toto item" onChange={(e) => { setItemText(e.target.value); }} value={itemText}></input>
-        <button type="submit">Add</button>
-      </form>
-      <div className={styles.todo_listItems}>
-        {listItems.map(item => (
-          <div className={styles.todo_item}>
-            {isUpdating === item._id 
-            ? renderUpdateForm() 
-            : <>
-              <p className={styles.item_content}>{item.item}</p>
-              <button className={styles.update_item} onClick={() => {setIsUpdating(item._id)}}> Update </button>
-              <button className={styles.delete_item} onClick={() => {deleteItem(item._id)}}> Delete </button>
-            </>
-            }
-          </div>
-          ))
-        }
+      <div className={styles.start_form}>
+        <form className={styles.form} onSubmit={e => addItem(e)}>
+          <input type="text" placeholder="Add toto item" onChange={(e) => { setItemText(e.target.value); }} value={itemText}></input>
+          <button type="submit">Add</button>
+        </form>
+        <div className={styles.todo_listItems}>
+          {listItems.map(item => (
+            <div className={styles.todo_item}>
+              {isUpdating === item._id 
+              ? renderUpdateForm() 
+              : <>
+                <p className={styles.item_content}>{item.item}</p>
+                <button className={styles.update_item} onClick={() => {setIsUpdating(item._id)}}> Update </button>
+                <button className={styles.delete_item} onClick={() => {deleteItem(item._id)}}> Delete </button>
+              </>
+              }
+            </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,16 @@
 const router = require("express").Router();
+const {User} = require("../models/user");
 
 //import todo model
 const todoItemsModel = require("../models/todoItems");
 
 //post method to add an new item
-router.post("/api/item", async (req, res) => {
+router.post("/api/item/:id", async (req, res) => {
   try {
+    const user = await User.findById(req.params.id);
     const newItem = new todoItemsModel({
       item: req.body.item,
+      user_id: user._id,
     });
     //save this item to db
     const saveItem = await newItem.save();
@@ -18,9 +21,13 @@ router.post("/api/item", async (req, res) => {
 });
 
 //get method to get all item
-router.get("/api/items", async (req, res) => {
+router.get("/api/items/:id", async (req, res) => {
   try {
-    const listAllItems = await todoItemsModel.find({});
+    const user_id = req.params.id;
+    const listAllItems = await todoItemsModel.find({user_id});
+    if (listAllItems.length === 0) {
+      return res.status(404).json({ message: 'No items found for the user' });
+    }
     res.status(200).json(listAllItems);
   } catch (err) {
     res.json(err);
@@ -49,6 +56,15 @@ router.delete("/api/item/:id", async (req, res) => {
     res.json(err);
   }
 });
+
+router.delete("/api/delall", async (req, res) => {
+  try {
+    const deleteAllItems = await todoItemsModel.deleteMany();
+    res.status(200).json("allItem are deleted");
+  } catch (error) {
+    res.json(error);
+  }
+})
 
 //export router
 module.exports = router;

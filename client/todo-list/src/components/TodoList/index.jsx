@@ -25,7 +25,7 @@ function TodoList() {
       // Extract user information from the decoded payload
       const id = user._id;
 
-      const res = await axios.post(`http://localhost:8089/api/item/${id}`, { item: itemText});
+      const res = await axios.post(`http://15.235.203.180:8089/api/item/${id}`, { item: itemText});
       setItemText((prev) => [...prev, res.data]);
       setItemText("");
     } catch (error) {
@@ -47,7 +47,7 @@ function TodoList() {
         // Extract user information from the decoded payload
         const id = user._id;
         document.title = 'TodoApp';
-        const res = await axios.get(`http://localhost:8089/api/items/${id}`);
+        const res = await axios.get(`http://15.235.203.180:8089/api/items/${id}`);
         setListItems(res.data);
       } catch (error) {
         console.log(error);
@@ -59,7 +59,7 @@ function TodoList() {
   //delete item
   const deleteItem = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:8089/api/item/${id}`);
+      const res = await axios.delete(`http://15.235.203.180:8089/api/item/${id}`);
       const newList = listItems.filter((item) => item._id !== id);
       setListItems(newList);
     } catch (error) {
@@ -71,7 +71,7 @@ function TodoList() {
   const updateItem = async(e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:8089/api/item/${isUpdating}`, {item:itemTextUpdate})
+      const res = await axios.put(`http://15.235.203.180:8089/api/item/${isUpdating}`, {item:itemTextUpdate})
       setItemTextUpdate('');
       setIsUpdating('');
       console.log(res.data)
